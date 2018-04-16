@@ -3,17 +3,17 @@
 const {MongoClient, ObjectID} = require('mongodb');
 
 
-MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
+MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, client) => {
   if (err){
     return console.log('Unable to connect to MongoDB server');
   }
 
   console.log('Connected to MongoDB server');
-  const myDataBase = db.db('TodoApp');
+  const db = client.db('TodoApp');
 
   //findOneAndUpdate
 
-  /*myDataBase.collection('Todos').findOneAndUpdate({
+  /*db.collection('Todos').findOneAndUpdate({
     _id: new ObjectID('5a88f1fcf24296fc5643b4a1')
   }, {
     $set: {
@@ -25,7 +25,7 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
     console.log(result);
   });*/
 
-  myDataBase.collection('Users').findOneAndUpdate({
+  db.collection('Users').findOneAndUpdate({
     name: 'Luis'
   }, {
     $set: {
@@ -40,5 +40,5 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
     console.log(result);
   });
 
-  db.close();
+  client.close();
 });
